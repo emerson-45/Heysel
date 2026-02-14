@@ -63,11 +63,11 @@
             font-weight: 500;
             color: #2d1f3a;
             background: rgba(255, 250, 255, 0.9);
-            padding: 1.3rem 1.5rem;
+            padding: 1.5rem 1.8rem;
             border-radius: 50px;
             box-shadow: 0 8px 18px rgba(140, 100, 180, 0.15);
-            margin-bottom: 2rem;
-            line-height: 1.6;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
             border: 2px solid white;
             text-align: center;
         }
@@ -80,7 +80,7 @@
             color: #4f2f75;
             font-weight: 700;
             font-size: 1.5rem;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.8rem;
         }
 
         .foto-marco {
@@ -118,13 +118,29 @@
             display: block;
         }
 
+        /* Imagen de Snoopy */
+        .snoopy-container {
+            margin: 1.5rem auto 1rem;
+            max-width: 150px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border: 3px solid white;
+        }
+        
+        .snoopy-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         /* Control de música simplificado */
         .control-musica {
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 1rem;
-            margin: 1.5rem auto 1rem;
+            margin: 1rem auto 0.5rem;
             background: rgba(230, 210, 255, 0.5);
             padding: 0.5rem 1.8rem;
             border-radius: 60px;
@@ -151,13 +167,20 @@
             letter-spacing: 0.5px;
         }
 
+        .texto-musica {
+            color: #725a97; 
+            font-size: 0.9rem; 
+            margin-top: 0.2rem;
+            margin-bottom: 1rem;
+        }
+
         .dedicatoria {
-            margin-top: 1.5rem;
             font-size: 1.2rem;
             color: #5a3d7a;
             font-weight: 500;
+            margin-top: 1rem;
+            padding-top: 1rem;
             border-top: 2px solid #ebd0ff;
-            padding-top: 1.5rem;
         }
 
         .corazones-container {
@@ -195,7 +218,7 @@
             }
         }
 
-        /* Audio oculto (solo control visual) */
+        /* Audio oculto */
         #audioFondo {
             display: none;
         }
@@ -203,8 +226,9 @@
         @media (max-width: 500px) {
             h1 { font-size: 3.2rem; }
             .card { padding: 2rem 1.2rem; }
-            .mensaje-amistad { font-size: 1.1rem; padding: 1rem; }
+            .mensaje-amistad { font-size: 1.1rem; padding: 1.2rem; }
             .foto-marco { max-width: 260px; }
+            .snoopy-container { max-width: 120px; }
             .control-musica { padding: 0.4rem 1.2rem; }
             .icono-musica { font-size: 1.8rem; }
             .estado-musica { font-size: 1rem; }
@@ -214,13 +238,10 @@
 <body>
     <div class="corazones-container" id="corazonesContainer"></div>
 
-    <!-- Audio con canción incluida (archivo gratuito) -->
+    <!-- Audio con el archivo MP3 que tienes -->
     <audio id="audioFondo" loop autoplay>
-        <!-- Usamos un archivo de audio gratuito de Pixabay (Love Background Piano) -->
-        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_0f8d6c6f6f.mp3?filename=love-background-piano-186415.mp3" type="audio/mpeg">
-        <!-- Fallback: otro enlace similar -->
-        <source src="https://cdn.pixabay.com/download/audio/2022/02/21/audio_91399dc981.mp3?filename=romantic-piano-moment-11240.mp3" type="audio/mpeg">
-        Tu navegador no soporta audio.
+        <source src="El mundo mágico de Bruce - Avicii - Hey Brother [Letra + Traducción] (1).mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
     </audio>
 
     <div class="card">
@@ -228,9 +249,11 @@
 
         <div class="mensaje-amistad">
             <span>✨ Heysel ✨</span><br>
-            Una amistad sincera es refugio que abriga, es confianza que no se pregunta,<br>
-            es cariño que celebra lo que somos.<br>
-            Que este día esté lleno de la luz que siempre regalas. 💜
+            Una amistad verdadera es apoyo, confianza y momentos felices.<br>
+            Gracias por ser mi mejor amiga y por siempre estar conmigo.<br><br>
+            Que este Día de San Valentín esté lleno de alegría,<br>
+            como la que tú siempre regalas. 💜<br><br>
+            ¡Feliz Día de San Valentín! ING
         </div>
 
         <!-- Foto de Heysel -->
@@ -245,10 +268,15 @@
             <span class="icono-musica" id="iconoMusica">🔊</span>
             <span class="estado-musica" id="textoMusica">Sonido activado</span>
         </div>
-        <p style="color:#725a97; font-size:0.9rem; margin-top:0.3rem;">♫ Música de fondo suave ♫</p>
+        <div class="texto-musica">♫ Avicii - Hey Brother ♫</div>
+
+        <!-- Imagen de Snoopy -->
+        <div class="snoopy-container">
+            <img src="il_600x600.6601491265_rqel.png" alt="Snoopy">
+        </div>
 
         <div class="dedicatoria">
-            <i>💐</i> Con todo mi cariño, para Heysel <i>💐</i>
+            💐 Con todo mi cariño, para Heysel 💐
         </div>
     </div>
 
@@ -270,7 +298,7 @@
                     textoMusica.textContent = 'Sonido silenciado';
                     musicaActiva = false;
                 } else {
-                    audio.play().catch(e => console.log('Autoplay bloqueado'));
+                    audio.play().catch(e => console.log('Error al reproducir'));
                     iconoMusica.textContent = '🔊';
                     textoMusica.textContent = 'Sonido activado';
                     musicaActiva = true;
@@ -299,7 +327,7 @@
                         musicaActiva = true;
                     }).catch(e => console.log('Error al reproducir'));
                 }
-            }, { once: true }); // solo una vez al inicio
+            }, { once: true });
 
             // CORAZONES CADA 1.5 SEGUNDOS
             const colores = [
