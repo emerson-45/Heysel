@@ -66,7 +66,7 @@
             padding: 1.5rem 1.8rem;
             border-radius: 50px;
             box-shadow: 0 8px 18px rgba(140, 100, 180, 0.15);
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
             line-height: 1.7;
             border: 2px solid white;
             text-align: center;
@@ -83,11 +83,12 @@
             margin-bottom: 0.8rem;
         }
 
+        /* Contenedor de la foto recortado al 70% de altura */
         .foto-marco {
             width: 100%;
             max-width: 300px;
-            margin: 0 auto 1.5rem auto;
-            aspect-ratio: 9 / 16;
+            margin: 0 auto 0.5rem auto; /* Reducido el margen inferior */
+            height: 280px; /* Altura fija para el recorte */
             border-radius: 32px;
             background: #ffffff;
             box-shadow: 
@@ -98,7 +99,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden; /* Importante: oculta lo que sobresale */
+            overflow: hidden;
         }
 
         .foto-interior {
@@ -107,26 +108,28 @@
             border-radius: 22px;
             overflow: hidden;
             display: flex;
-            align-items: flex-start; /* Alinea la imagen desde arriba */
+            align-items: flex-start;
             justify-content: center;
         }
 
         .foto-interior img {
             width: 100%;
-            height: auto;
+            height: 70%; /* La imagen ocupa el 70% del contenedor (recortada) */
             object-fit: cover;
-            object-position: center top; /* Enfoca desde arriba */
+            object-position: center top;
             display: block;
         }
 
-        /* Imagen de Snoopy */
+        /* Imagen de Snoopy - subida para quedar a la par */
         .snoopy-container {
-            margin: 1.5rem auto 1rem;
+            margin: 0 auto 1rem auto; /* Sin margen superior */
             max-width: 150px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             border: 3px solid white;
+            position: relative;
+            top: -10px; /* Sube Snoopy para que quede a la par */
         }
         
         .snoopy-container img {
@@ -183,8 +186,8 @@
             h1 { font-size: 3.2rem; }
             .card { padding: 2rem 1.2rem; }
             .mensaje-amistad { font-size: 1.1rem; padding: 1.2rem; }
-            .foto-marco { max-width: 260px; }
-            .snoopy-container { max-width: 120px; }
+            .foto-marco { max-width: 260px; height: 240px; }
+            .snoopy-container { max-width: 120px; top: -5px; }
         }
     </style>
 </head>
@@ -199,25 +202,22 @@
             Una amistad verdadera es apoyo, confianza y momentos felices.<br>
             Gracias por ser mi mejor amiga y por siempre estar conmigo.<br><br>
             Que este Día de San Valentín esté lleno de alegría,<br>
-            como la que tú siempre regalas. 💜<br><br>
+            como la que tú siempre regalas. <br><br>
             ¡Feliz Día de San Valentín! ING
         </div>
 
-        <!-- Foto de Heysel RECORTADA de arriba hacia abajo a la mitad -->
+        <!-- Foto de Heysel con marco y foto recortados -->
         <div class="foto-marco">
             <div class="foto-interior">
-                <img src="Gemini_Generated_Image_tyi2d4tyi2d4tyi2.png" alt="Heysel" style="height: 70%; width: 100%; object-fit: cover; object-position: center top;">
+                <img src="Gemini_Generated_Image_tyi2d4tyi2d4tyi2.png" alt="Heysel">
             </div>
         </div>
 
-        <!-- Imagen de Snoopy -->
+        <!-- Imagen de Snoopy - subida para quedar a la par -->
         <div class="snoopy-container">
             <img src="il_600x600.6601491265_rqel.png" alt="Snoopy">
         </div>
 
-        <div class="dedicatoria">
-            💐 Con todo mi cariño, para Heysel 💐
-        </div>
     </div>
 
     <script>
