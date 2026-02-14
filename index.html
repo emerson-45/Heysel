@@ -27,14 +27,14 @@
         }
 
         .card {
-            max-width: 600px;
+            max-width: 650px;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.85);
+            background-color: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             border-radius: 48px;
             box-shadow: 0 25px 45px rgba(130, 80, 170, 0.25);
-            padding: 2.8rem 2.2rem;
+            padding: 2.5rem 2.2rem;
             border: 3px solid rgba(240, 220, 255, 0.8);
             text-align: center;
             position: relative;
@@ -43,27 +43,31 @@
 
         h1 {
             font-family: 'Great Vibes', cursive;
-            font-size: 4.2rem;
+            font-size: 3.8rem;
             font-weight: 400;
             background: linear-gradient(135deg, #8a6cb0, #b57aa8, #d694c0);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             text-shadow: 2px 2px 15px rgba(170, 120, 200, 0.3);
-            line-height: 1.1;
+            line-height: 1.2;
+            word-break: keep-all;
+            white-space: normal;
+            max-width: 100%;
+            display: inline-block;
         }
 
         .mensaje-amistad {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 500;
             color: #2d1f3a;
             background: rgba(255, 250, 255, 0.9);
-            padding: 1.5rem 1.8rem;
-            border-radius: 70px;
-            box-shadow: 0 10px 20px rgba(140, 100, 180, 0.15);
-            margin-bottom: 2.2rem;
-            line-height: 1.7;
+            padding: 1.3rem 1.5rem;
+            border-radius: 50px;
+            box-shadow: 0 8px 18px rgba(140, 100, 180, 0.15);
+            margin-bottom: 2rem;
+            line-height: 1.6;
             border: 2px solid white;
             text-align: center;
         }
@@ -72,24 +76,24 @@
             display: inline-block;
             background: #dbbfff;
             border-radius: 40px;
-            padding: 0.2rem 1.2rem;
+            padding: 0.2rem 1rem;
             color: #4f2f75;
             font-weight: 700;
-            font-size: 1.6rem;
-            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 0.3rem;
         }
 
         .foto-marco {
             width: 100%;
-            max-width: 320px;
-            margin: 0 auto 2rem auto;
+            max-width: 300px;
+            margin: 0 auto 1.5rem auto;
             aspect-ratio: 9 / 16;
-            border-radius: 36px;
+            border-radius: 32px;
             background: #ffffff;
             box-shadow: 
                 0 0 0 5px white,
                 0 0 0 10px #efdbff,
-                0 20px 35px -8px #a07fc9;
+                0 20px 30px -8px #a07fc9;
             padding: 10px;
             display: flex;
             align-items: center;
@@ -99,7 +103,7 @@
         .foto-interior {
             width: 100%;
             height: 100%;
-            border-radius: 26px;
+            border-radius: 24px;
             overflow: hidden;
             display: flex;
             align-items: center;
@@ -110,41 +114,45 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 24px;
+            border-radius: 22px;
             display: block;
         }
 
-        /* Reproductor de música */
-        .reproductor {
-            margin: 1.8rem auto 1rem;
+        /* Control de música simplificado */
+        .control-musica {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 0.8rem;
-            background: rgba(255, 240, 255, 0.6);
-            padding: 0.6rem 1.5rem;
+            gap: 1rem;
+            margin: 1.5rem auto 1rem;
+            background: rgba(230, 210, 255, 0.5);
+            padding: 0.5rem 1.8rem;
             border-radius: 60px;
             width: fit-content;
-            border: 2px solid #efd0ff;
+            border: 2px solid #e5c9ff;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .nota-musical {
-            font-size: 1.8rem;
-            color: #9b6fbb;
+        .control-musica:hover {
+            background: rgba(220, 190, 255, 0.7);
+            transform: scale(1.02);
         }
         
-        audio {
-            height: 40px;
-            width: 220px;
-            border-radius: 30px;
+        .icono-musica {
+            font-size: 2rem;
+            color: #7a4fa0;
         }
         
-        audio::-webkit-media-controls-panel {
-            background-color: #f5e6ff;
+        .estado-musica {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #5a3677;
+            letter-spacing: 0.5px;
         }
 
         .dedicatoria {
-            margin-top: 1.8rem;
+            margin-top: 1.5rem;
             font-size: 1.2rem;
             color: #5a3d7a;
             font-weight: 500;
@@ -166,11 +174,11 @@
         .corazon {
             position: absolute;
             bottom: -10vh;
-            font-size: 2.5rem;
-            animation: flotar-corazon 7s linear forwards;
+            font-size: 2.2rem;
+            animation: flotar-corazon 8s linear forwards;
             filter: drop-shadow(0 0 8px #ffafd0);
             user-select: none;
-            opacity: 0.7;
+            opacity: 0.6;
         }
 
         @keyframes flotar-corazon {
@@ -187,17 +195,33 @@
             }
         }
 
-        @media (max-width: 480px) {
+        /* Audio oculto (solo control visual) */
+        #audioFondo {
+            display: none;
+        }
+
+        @media (max-width: 500px) {
+            h1 { font-size: 3.2rem; }
             .card { padding: 2rem 1.2rem; }
-            h1 { font-size: 3.3rem; }
-            .mensaje-amistad { font-size: 1.2rem; padding: 1.2rem; }
-            .reproductor { flex-direction: column; gap: 0.3rem; }
-            audio { width: 200px; }
+            .mensaje-amistad { font-size: 1.1rem; padding: 1rem; }
+            .foto-marco { max-width: 260px; }
+            .control-musica { padding: 0.4rem 1.2rem; }
+            .icono-musica { font-size: 1.8rem; }
+            .estado-musica { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
     <div class="corazones-container" id="corazonesContainer"></div>
+
+    <!-- Audio con canción incluida (archivo gratuito) -->
+    <audio id="audioFondo" loop autoplay>
+        <!-- Usamos un archivo de audio gratuito de Pixabay (Love Background Piano) -->
+        <source src="https://cdn.pixabay.com/download/audio/2022/03/10/audio_0f8d6c6f6f.mp3?filename=love-background-piano-186415.mp3" type="audio/mpeg">
+        <!-- Fallback: otro enlace similar -->
+        <source src="https://cdn.pixabay.com/download/audio/2022/02/21/audio_91399dc981.mp3?filename=romantic-piano-moment-11240.mp3" type="audio/mpeg">
+        Tu navegador no soporta audio.
+    </audio>
 
     <div class="card">
         <h1>Feliz San Valentín</h1>
@@ -216,17 +240,12 @@
             </div>
         </div>
 
-        <!-- Reproductor de música (se reproduce automático) -->
-        <div class="reproductor">
-            <span class="nota-musical">🎵</span>
-            <audio id="cancion" controls autoplay loop>
-                <source src="cancion-amor.mp3" type="audio/mpeg">
-                <!-- Si no encuentras el archivo, aquí puedes poner un link directo -->
-                Tu navegador no soporta el elemento de audio.
-            </audio>
-            <span class="nota-musical">🎶</span>
+        <!-- Control único: silenciar/activar -->
+        <div class="control-musica" id="controlMusica">
+            <span class="icono-musica" id="iconoMusica">🔊</span>
+            <span class="estado-musica" id="textoMusica">Sonido activado</span>
         </div>
-        <p style="color:#725a97; font-size:0.9rem; margin-top:0;">♫ Una canción especial para ti ♫</p>
+        <p style="color:#725a97; font-size:0.9rem; margin-top:0.3rem;">♫ Música de fondo suave ♫</p>
 
         <div class="dedicatoria">
             <i>💐</i> Con todo mi cariño, para Heysel <i>💐</i>
@@ -236,7 +255,53 @@
     <script>
         (function() {
             const container = document.getElementById('corazonesContainer');
+            const audio = document.getElementById('audioFondo');
+            const controlMusica = document.getElementById('controlMusica');
+            const iconoMusica = document.getElementById('iconoMusica');
+            const textoMusica = document.getElementById('textoMusica');
+            
+            let musicaActiva = true;
 
+            // Control de música: silenciar/activar
+            controlMusica.addEventListener('click', function() {
+                if (musicaActiva) {
+                    audio.pause();
+                    iconoMusica.textContent = '🔇';
+                    textoMusica.textContent = 'Sonido silenciado';
+                    musicaActiva = false;
+                } else {
+                    audio.play().catch(e => console.log('Autoplay bloqueado'));
+                    iconoMusica.textContent = '🔊';
+                    textoMusica.textContent = 'Sonido activado';
+                    musicaActiva = true;
+                }
+            });
+
+            // Intentar reproducir audio (manejo de autoplay)
+            function intentarReproducirAudio() {
+                audio.play().catch(e => {
+                    console.log("Autoplay bloqueado, esperando interacción");
+                    // Si no se puede reproducir automático, mostramos indicación
+                    textoMusica.textContent = 'Haz clic para activar';
+                    iconoMusica.textContent = '🔇';
+                    musicaActiva = false;
+                });
+            }
+            
+            window.addEventListener('load', intentarReproducirAudio);
+            
+            // Si el usuario hace clic en cualquier lado y el audio está silenciado, lo activamos
+            document.body.addEventListener('click', function activarPorClick() {
+                if (!musicaActiva && audio.paused) {
+                    audio.play().then(() => {
+                        iconoMusica.textContent = '🔊';
+                        textoMusica.textContent = 'Sonido activado';
+                        musicaActiva = true;
+                    }).catch(e => console.log('Error al reproducir'));
+                }
+            }, { once: true }); // solo una vez al inicio
+
+            // CORAZONES CADA 1.5 SEGUNDOS
             const colores = [
                 '#ffb7c5', '#ff9eb5', '#ffa5c3', 
                 '#e3b0ff', '#d8a7f0', '#f0c0e8',
@@ -257,7 +322,7 @@
                 const left = Math.random() * 100;
                 corazon.style.left = left + '%';
                 
-                const size = 1.8 + Math.random() * 2.5;
+                const size = 1.5 + Math.random() * 2.2;
                 corazon.style.fontSize = size + 'rem';
                 
                 const duracion = 5 + Math.random() * 5;
@@ -273,33 +338,13 @@
                 }, (duracion + retardo) * 1000 + 300);
             }
 
-            // CORAZONES CADA 1.5 SEGUNDOS (automáticos)
+            // Iniciar corazones automáticos
             setInterval(crearCorazon, 1500);
 
-            // También crear unos cuantos al inicio para que empiece bonito
-            for (let i = 0; i < 8; i++) {
+            // Crear unos cuantos al inicio
+            for (let i = 0; i < 10; i++) {
                 setTimeout(() => crearCorazon(), i * 200);
             }
-
-            // Si por alguna razón el audio no se reproduce automático (políticas de navegador)
-            // intentamos forzar la reproducción con un clic simulado
-            const audio = document.getElementById('cancion');
-            
-            // Función para intentar reproducir audio
-            function intentarReproducirAudio() {
-                audio.play().catch(e => {
-                    console.log("El navegador bloqueó autoplay, pero el control manual funciona");
-                });
-            }
-            
-            // Intentar reproducir cuando cargue la página
-            window.addEventListener('load', intentarReproducirAudio);
-            
-            // También intentar cuando el usuario haga clic en cualquier parte (por si el navegador es muy restrictivo)
-            document.body.addEventListener('click', function unaVez() {
-                audio.play();
-                document.body.removeEventListener('click', unaVez);
-            }, { once: true });
             
         })();
     </script>
