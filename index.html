@@ -134,6 +134,46 @@
             display: block;
         }
 
+        /* Control de música */
+        .control-musica {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem auto 1rem;
+            background: rgba(210, 190, 255, 0.5);
+            padding: 0.5rem 1.8rem;
+            border-radius: 60px;
+            width: fit-content;
+            border: 2px solid #d9c9ff;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .control-musica:hover {
+            background: rgba(190, 170, 245, 0.7);
+            transform: scale(1.02);
+        }
+        
+        .icono-musica {
+            font-size: 2rem;
+            color: #7a4fa0;
+        }
+        
+        .estado-musica {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #6a3d8a;
+            letter-spacing: 0.5px;
+        }
+
+        .texto-musica {
+            color: #7a5a97; 
+            font-size: 0.9rem; 
+            margin-top: 0.2rem;
+            margin-bottom: 0.5rem;
+        }
+
         .dedicatoria {
             font-size: 1.2rem;
             color: #5a3d7a;
@@ -178,54 +218,132 @@
             }
         }
 
+        /* Audio MP3 */
+        #audioFondo {
+            display: none;
+        }
+
         @media (max-width: 500px) {
             h1 { font-size: 3.2rem; }
             .card { padding: 2rem 1.2rem; }
             .mensaje-amistad { font-size: 1.1rem; padding: 1.2rem; }
             .foto-marco { max-width: 260px; }
             .snoopy-container { max-width: 120px; }
+            .control-musica { padding: 0.4rem 1.2rem; }
+            .icono-musica { font-size: 1.8rem; }
+            .estado-musica { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
     <div class="corazones-container" id="corazonesContainer"></div>
 
+    <!-- Audio MP3 (HeyBrother.mp3) -->
+    <audio id="audioFondo" loop preload="auto">
+        <source src="HeyBrother.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
     <div class="card">
         <h1>Feliz San Valentín</h1>
 
-<div class="mensaje-amistad">
-    <span>✨ Heysel ✨</span><br>
-    Gracias por cada risa compartida, por estar siempre presente, incluso en la distancia.<br><br>
-    Gracias por demostrarme que una amistad sincera no entiende de momentos,<br>
-    sino de sentir, de confiar y de saber que pase lo que pase, ahí estás tú.<br><br>
-    Eres una de esas personas que iluminan sin querer,<br>
-    que abrazan el alma sin tocarla y que hacen que la vida sea más bonita.<br><br>
-    Gracias por ser mi amiga, por estar en lo difícil y en lo feliz,<br>
-    por ser refugio y alegría al mismo tiempo.<br><br>
-    Te quiero, Heysel. Que hoy y siempre tengas luz.<br><br>
-    <span style="display: block; text-align: center; line-height: 1.5; font-size: 0.9rem; color: #7a4fa0; font-style: italic; margin-top: 15px;">
-        lucia = luz, ¿captas va? ok bromas salu
-    </span>
-</div>
+        <div class="mensaje-amistad">
+            <span>✨ Heysel ✨</span><br>
+            Gracias por cada risa compartida, por estar siempre presente, incluso en la distancia.<br><br>
+            Gracias por demostrarme que una amistad sincera no entiende de momentos,<br>
+            sino de sentir, de confiar y de saber que pase lo que pase, ahí estás tú.<br><br>
+            Eres una de esas personas que iluminan sin querer,<br>
+            que abrazan el alma sin tocarla y que hacen que la vida sea más bonita.<br><br>
+            Gracias por ser mi amiga, por estar en lo difícil y en lo feliz,<br>
+            por ser refugio y alegría al mismo tiempo.<br><br>
+            Te quiero, Heysel. Que hoy y siempre tengas luz.<br><br>
+            <span style="display: block; text-align: center; line-height: 1.5; font-size: 0.9rem; color: #7a4fa0; font-style: italic; margin-top: 15px;">
+                lucia = luz, ¿captas va? ok bromas salu
+            </span>
+        </div>
 
-        
-        <!-- Foto de Heysel con marco y foto recortados -->
+        <!-- Foto de Heysel -->
         <div class="foto-marco">
             <div class="foto-interior">
                 <img src="Gemini_Generated_Image_tyi2d4tyi2d4tyi2.png" alt="Heysel">
             </div>
         </div>
 
+        <!-- Control de música -->
+        <div class="control-musica" id="controlMusica">
+            <span class="icono-musica" id="iconoMusica">🔊</span>
+            <span class="estado-musica" id="textoMusica">Sonido activado</span>
+        </div>
+        <div class="texto-musica">♫ Avicii - Hey Brother ♫</div>
+
         <!-- Imagen de Snoopy -->
         <div class="snoopy-container">
             <img src="il_600x600.6601491265_rqel.png" alt="Snoopy">
         </div>
 
+        <div class="dedicatoria">
+            💐 Con todo mi cariño, para Heysel 💐
+        </div>
     </div>
 
     <script>
         (function() {
             const container = document.getElementById('corazonesContainer');
+            
+            // CONTROL DE MÚSICA CON AUTOPLAY FORZADO
+            const audio = document.getElementById('audioFondo');
+            const controlMusica = document.getElementById('controlMusica');
+            const iconoMusica = document.getElementById('iconoMusica');
+            const textoMusica = document.getElementById('textoMusica');
+            
+            let musicaActiva = true;
+
+            // Función para intentar reproducir
+            function intentarReproducir() {
+                audio.play().then(() => {
+                    console.log("Audio reproduciendo correctamente");
+                    iconoMusica.textContent = '🔊';
+                    textoMusica.textContent = 'Sonido activado';
+                    musicaActiva = true;
+                }).catch(error => {
+                    console.log("Autoplay bloqueado:", error);
+                    textoMusica.textContent = 'Haz clic para activar';
+                    iconoMusica.textContent = '🔇';
+                    musicaActiva = false;
+                });
+            }
+
+            // Intentar reproducir cuando cargue la página
+            window.addEventListener('load', function() {
+                setTimeout(intentarReproducir, 500);
+            });
+
+            // Control manual con el botón
+            controlMusica.addEventListener('click', function() {
+                if (musicaActiva) {
+                    audio.pause();
+                    iconoMusica.textContent = '🔇';
+                    textoMusica.textContent = 'Sonido silenciado';
+                    musicaActiva = false;
+                } else {
+                    audio.play().then(() => {
+                        iconoMusica.textContent = '🔊';
+                        textoMusica.textContent = 'Sonido activado';
+                        musicaActiva = true;
+                    }).catch(e => console.log('Error al reproducir'));
+                }
+            });
+
+            // Si el usuario hace clic en cualquier parte, activar el audio si está silenciado
+            document.body.addEventListener('click', function activarPorClick() {
+                if (!musicaActiva && audio.paused) {
+                    audio.play().then(() => {
+                        iconoMusica.textContent = '🔊';
+                        textoMusica.textContent = 'Sonido activado';
+                        musicaActiva = true;
+                    }).catch(e => console.log('Error al reproducir'));
+                }
+            }, { once: true });
 
             // CORAZONES CADA 1.5 SEGUNDOS
             const colores = [
@@ -264,10 +382,8 @@
                 }, (duracion + retardo) * 1000 + 300);
             }
 
-            // Iniciar corazones automáticos
             setInterval(crearCorazon, 1500);
 
-            // Crear unos cuantos al inicio
             for (let i = 0; i < 10; i++) {
                 setTimeout(() => crearCorazon(), i * 200);
             }
