@@ -134,46 +134,6 @@
             display: block;
         }
 
-        /* Control de música simplificado */
-        .control-musica {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            margin: 1rem auto 0.5rem;
-            background: rgba(230, 210, 255, 0.5);
-            padding: 0.5rem 1.8rem;
-            border-radius: 60px;
-            width: fit-content;
-            border: 2px solid #e5c9ff;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .control-musica:hover {
-            background: rgba(220, 190, 255, 0.7);
-            transform: scale(1.02);
-        }
-        
-        .icono-musica {
-            font-size: 2rem;
-            color: #7a4fa0;
-        }
-        
-        .estado-musica {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #5a3677;
-            letter-spacing: 0.5px;
-        }
-
-        .texto-musica {
-            color: #725a97; 
-            font-size: 0.9rem; 
-            margin-top: 0.2rem;
-            margin-bottom: 1rem;
-        }
-
         .dedicatoria {
             font-size: 1.2rem;
             color: #5a3d7a;
@@ -218,32 +178,17 @@
             }
         }
 
-        /* Reproductor de YouTube invisible */
-        #youtube-player {
-            position: absolute;
-            width: 0;
-            height: 0;
-            opacity: 0;
-            pointer-events: none;
-        }
-
         @media (max-width: 500px) {
             h1 { font-size: 3.2rem; }
             .card { padding: 2rem 1.2rem; }
             .mensaje-amistad { font-size: 1.1rem; padding: 1.2rem; }
             .foto-marco { max-width: 260px; }
             .snoopy-container { max-width: 120px; }
-            .control-musica { padding: 0.4rem 1.2rem; }
-            .icono-musica { font-size: 1.8rem; }
-            .estado-musica { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
     <div class="corazones-container" id="corazonesContainer"></div>
-
-    <!-- Reproductor de YouTube invisible -->
-    <div id="youtube-player"></div>
 
     <div class="card">
         <h1>Feliz San Valentín</h1>
@@ -264,13 +209,6 @@
             </div>
         </div>
 
-        <!-- Control único: silenciar/activar -->
-        <div class="control-musica" id="controlMusica">
-            <span class="icono-musica" id="iconoMusica">🔊</span>
-            <span class="estado-musica" id="textoMusica">Sonido activado</span>
-        </div>
-        <div class="texto-musica">♫ Avicii - Hey Brother ♫</div>
-
         <!-- Imagen de Snoopy -->
         <div class="snoopy-container">
             <img src="il_600x600.6601491265_rqel.png" alt="Snoopy">
@@ -281,77 +219,9 @@
         </div>
     </div>
 
-    <!-- API de YouTube -->
-    <script src="https://www.youtube.com/iframe_api"></script>
-    
     <script>
         (function() {
             const container = document.getElementById('corazonesContainer');
-            const controlMusica = document.getElementById('controlMusica');
-            const iconoMusica = document.getElementById('iconoMusica');
-            const textoMusica = document.getElementById('textoMusica');
-            
-            let player;
-            let musicaActiva = true;
-            let playerListo = false;
-
-            // Función que llama la API de YouTube cuando está lista
-            window.onYouTubeIframeAPIReady = function() {
-                player = new YT.Player('youtube-player', {
-                    height: '0',
-                    width: '0',
-                    videoId: '2WFXnsj-qqQ', // ID del video de YouTube
-                    playerVars: {
-                        'autoplay': 1,
-                        'loop': 1,
-                        'playlist': '2WFXnsj-qqQ', // necesario para loop
-                        'controls': 0,
-                        'showinfo': 0,
-                        'rel': 0,
-                        'iv_load_policy': 3,
-                        'modestbranding': 1
-                    },
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
-            };
-
-            function onPlayerReady(event) {
-                playerListo = true;
-                // Intentar reproducir (autoplay ya está en parámetros)
-                player.playVideo();
-                
-                // Actualizar estado visual
-                textoMusica.textContent = 'Sonido activado';
-                iconoMusica.textContent = '🔊';
-                musicaActiva = true;
-            }
-
-            function onPlayerStateChange(event) {
-                // Si el video termina y queremos loop (ya está configurado)
-                if (event.data === YT.PlayerState.ENDED) {
-                    player.playVideo(); // Asegurar loop
-                }
-            }
-
-            // Control de música: silenciar/activar
-            controlMusica.addEventListener('click', function() {
-                if (!playerListo) return;
-                
-                if (musicaActiva) {
-                    player.pauseVideo();
-                    iconoMusica.textContent = '🔇';
-                    textoMusica.textContent = 'Sonido silenciado';
-                    musicaActiva = false;
-                } else {
-                    player.playVideo();
-                    iconoMusica.textContent = '🔊';
-                    textoMusica.textContent = 'Sonido activado';
-                    musicaActiva = true;
-                }
-            });
 
             // CORAZONES CADA 1.5 SEGUNDOS
             const colores = [
