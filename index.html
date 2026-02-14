@@ -98,23 +98,24 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden; /* Importante: oculta lo que sobresale */
         }
 
         .foto-interior {
             width: 100%;
             height: 100%;
-            border-radius: 24px;
+            border-radius: 22px;
             overflow: hidden;
             display: flex;
-            align-items: center;
+            align-items: flex-start; /* Alinea la imagen desde arriba */
             justify-content: center;
         }
 
         .foto-interior img {
             width: 100%;
-            height: 100%;
+            height: auto;
             object-fit: cover;
-            border-radius: 22px;
+            object-position: center top; /* Enfoca desde arriba */
             display: block;
         }
 
@@ -198,14 +199,14 @@
             Una amistad verdadera es apoyo, confianza y momentos felices.<br>
             Gracias por ser mi mejor amiga y por siempre estar conmigo.<br><br>
             Que este Día de San Valentín esté lleno de alegría,<br>
-            como la que tú siempre regalas. <br><br>
+            como la que tú siempre regalas. 💜<br><br>
             ¡Feliz Día de San Valentín! ING
         </div>
 
-        <!-- Foto de Heysel -->
+        <!-- Foto de Heysel RECORTADA de arriba hacia abajo a la mitad -->
         <div class="foto-marco">
             <div class="foto-interior">
-                <img src="Gemini_Generated_Image_tyi2d4tyi2d4tyi2.png" alt="Heysel">  style="height: 50%; width: 100%; object-fit: cover; object-position: center top;"
+                <img src="Gemini_Generated_Image_tyi2d4tyi2d4tyi2.png" alt="Heysel" style="height: 70%; width: 100%; object-fit: cover; object-position: center top;">
             </div>
         </div>
 
@@ -214,6 +215,9 @@
             <img src="il_600x600.6601491265_rqel.png" alt="Snoopy">
         </div>
 
+        <div class="dedicatoria">
+            💐 Con todo mi cariño, para Heysel 💐
+        </div>
     </div>
 
     <script>
