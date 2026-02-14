@@ -218,9 +218,13 @@
             }
         }
 
-        /* Audio oculto */
-        #audioFondo {
-            display: none;
+        /* Reproductor de YouTube invisible */
+        #youtube-player {
+            position: absolute;
+            width: 0;
+            height: 0;
+            opacity: 0;
+            pointer-events: none;
         }
 
         @media (max-width: 500px) {
@@ -238,11 +242,8 @@
 <body>
     <div class="corazones-container" id="corazonesContainer"></div>
 
-    <!-- Audio con el archivo MP3 renombrado a HeyBrother.mp3 -->
-    <audio id="audioFondo" loop autoplay>
-        <source src="HeyBrother.mp3" type="audio/mpeg">
-        Tu navegador no soporta el elemento de audio.
-    </audio>
+    <!-- Reproductor de YouTube invisible -->
+    <div id="youtube-player"></div>
 
     <div class="card">
         <h1>Feliz San Valentín</h1>
@@ -280,54 +281,77 @@
         </div>
     </div>
 
+    <!-- API de YouTube -->
+    <script src="https://www.youtube.com/iframe_api"></script>
+    
     <script>
         (function() {
             const container = document.getElementById('corazonesContainer');
-            const audio = document.getElementById('audioFondo');
             const controlMusica = document.getElementById('controlMusica');
             const iconoMusica = document.getElementById('iconoMusica');
             const textoMusica = document.getElementById('textoMusica');
             
+            let player;
             let musicaActiva = true;
+            let playerListo = false;
+
+            // Función que llama la API de YouTube cuando está lista
+            window.onYouTubeIframeAPIReady = function() {
+                player = new YT.Player('youtube-player', {
+                    height: '0',
+                    width: '0',
+                    videoId: '2WFXnsj-qqQ', // ID del video de YouTube
+                    playerVars: {
+                        'autoplay': 1,
+                        'loop': 1,
+                        'playlist': '2WFXnsj-qqQ', // necesario para loop
+                        'controls': 0,
+                        'showinfo': 0,
+                        'rel': 0,
+                        'iv_load_policy': 3,
+                        'modestbranding': 1
+                    },
+                    events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                    }
+                });
+            };
+
+            function onPlayerReady(event) {
+                playerListo = true;
+                // Intentar reproducir (autoplay ya está en parámetros)
+                player.playVideo();
+                
+                // Actualizar estado visual
+                textoMusica.textContent = 'Sonido activado';
+                iconoMusica.textContent = '🔊';
+                musicaActiva = true;
+            }
+
+            function onPlayerStateChange(event) {
+                // Si el video termina y queremos loop (ya está configurado)
+                if (event.data === YT.PlayerState.ENDED) {
+                    player.playVideo(); // Asegurar loop
+                }
+            }
 
             // Control de música: silenciar/activar
             controlMusica.addEventListener('click', function() {
+                if (!playerListo) return;
+                
                 if (musicaActiva) {
-                    audio.pause();
+                    player.pauseVideo();
                     iconoMusica.textContent = '🔇';
                     textoMusica.textContent = 'Sonido silenciado';
                     musicaActiva = false;
                 } else {
-                    audio.play().catch(e => console.log('Error al reproducir'));
+                    player.playVideo();
                     iconoMusica.textContent = '🔊';
                     textoMusica.textContent = 'Sonido activado';
                     musicaActiva = true;
                 }
             });
-
-            // Intentar reproducir audio (manejo de autoplay)
-            function intentarReproducirAudio() {
-                audio.play().catch(e => {
-                    console.log("Autoplay bloqueado, esperando interacción");
-                    // Si no se puede reproducir automático, mostramos indicación
-                    textoMusica.textContent = 'Haz clic para activar';
-                    iconoMusica.textContent = '🔇';
-                    musicaActiva = false;
-                });
-            }
-            
-            window.addEventListener('load', intentarReproducirAudio);
-            
-            // Si el usuario hace clic en cualquier lado y el audio está silenciado, lo activamos
-            document.body.addEventListener('click', function activarPorClick() {
-                if (!musicaActiva && audio.paused) {
-                    audio.play().then(() => {
-                        iconoMusica.textContent = '🔊';
-                        textoMusica.textContent = 'Sonido activado';
-                        musicaActiva = true;
-                    }).catch(e => console.log('Error al reproducir'));
-                }
-            }, { once: true });
 
             // CORAZONES CADA 1.5 SEGUNDOS
             const colores = [
